@@ -1,0 +1,264 @@
+
+Database:
+  A database is an organized collection of structured/unstructured information, or data, 
+  typically stored electronically in a computer system. A database is usually 
+  controlled by a database management system (DBMS).
+
+  SQL --> Structured Query Language
+    Language used to structurallly query the database, database responds with data
+
+  Eg: Design a DB for Facebook sort of application,
+    Data invovled in facebook, 
+      what are the groups of data that being used in Facebook,
+        1. Users ---> id, Profile Picture, Name, DOB, BIO
+        2. Friends ---> User Id, email, friend_since, frind_id
+        3. Posts ---> post_id, vidoe/image, likes (number), comments( this is also group )
+        4. Comments ---> user_id, datetime, string
+        5. Ads --> name, image, link, genre of the ads
+
+  Relationship between tables/objects,
+    one-to-many (user ---> friends)
+    many-to-one (friends ---> user)
+
+  Eg:
+    School/College maintaining students/teachers data in structured manner 
+    like below,
+      Student:
+        student_id ( int )
+        student_name (  )
+        student_class/year
+        student_department
+        class_teacher (teacher_id)
+      Teacher:
+        teacher_id
+        teacher_name
+        teacher_subject
+      Subjects:
+        name
+        id (primary key)
+        teacher ( teacher_id ) ( FOREIGN KEY )
+      Marks:
+        subject_id ( FOREIGN KEY )
+        mark
+        mark_id (primary key)
+        student_id ( FOREIGN KEY )
+
+      Relationship between the teacher and student,
+        teacher ---> students (one to many)
+      
+      Subjects & Teacher,
+        teacher ---> subjects
+      
+      Marks and Subjects:
+        Marks --> subjects, students (many to many)
+
+    Train Ticket Booking,
+      Train:
+        train_number
+        train_name
+        train_status
+      Customers:
+        cust_id
+        cust_name
+        cust_email
+        cust_phone
+      Bookings: (Tickets)
+        pnr
+        customer_id
+        seats
+        tain_number
+        date
+  
+  Exercise Design a DB for Shopping Mart including,
+    Customers, Products, Orders related Cart_id/customer_id (), Cart ( multiple entries of product with same cart_id )
+
+Storing these information in structural( SQL ) / Un Structural( NoSQL ) way
+is called a database.
+
+DBMS:
+  Database Management System is a software application/service used to 
+  manage the operations( CRUD ) in the DB.
+
+MySql:
+  MySQL is a Structural database management system.
+
+MySql Engine:
+  A storage engine is a software module that a database management system uses 
+  to create, read, update data from a database.
+
+basics:
+  datatypes in sql
+    basic types 
+      varchar(size) - string, 
+      INT(size), 
+      FLOAT(size, d), 
+      DATE
+      BLOB(size) / TEXT (CDN URL)- images/vidoes
+        usually not suggested to used because of the uncertain size and type of the media which can load the DB size.
+        Preferred way is CDN ( Content Delivery Network ) which can serve the images or videos hover internet
+  
+    several more refer - https://www.w3schools.com/sql/sql_datatypes.asp
+
+  operators - https://www.w3schools.com/sql/sql_operators.asp
+
+
+SQLBolt: Online to Learn and Exercise on SQL
+
+create DB
+  https://www.w3schools.com/sql/default.asp
+  syntax: CREATE DATABASE databasename;
+
+  Eg: Create Data base for School Management
+
+  CREATE DATABASE school-mgmt;
+
+list DB;
+
+create table
+
+  rows(inserted, updated, deleted) ( data ), columns(alter) ( specification of the type of data )
+
+  https://www.w3schools.com/sql/sql_create_table.asp
+
+  CREATE TABLE table_name (
+      column1 datatype,
+      column2 datatype,
+      column3 datatype,
+    ....
+  );
+
+  CREATE TABLE Students (
+    StudentId int,
+    LastName varchar(255),
+    FirstName varchar(255),
+    Class int,
+  );
+
+ALTER TABLE:
+  statement is used to add, delete, or modify columns in an existing table.
+  ALTER TABLE table_name
+  ADD column_name datatype;
+
+  ALTER TABLE table_name
+  DROP COLUMN column_name;
+
+  ALTER TABLE table_name
+  RENAME COLUMN old_name to new_name;
+
+  ALTER TABLE table_name
+  MODIFY COLUMN column_name datatype;
+
+
+SQLBOLT:
+  Website to learn SQL with exercises
+
+CRUD --> CREATE, READ, UPDATE, DELETE
+
+READ:
+  select:
+    all data
+      SELECT * FROM movies;
+
+    single column
+      SELECT title FROM movies;
+
+    multiple columns
+      SELECT title, director FROM movies;
+
+  Filtering:
+    where:
+      select movies from year 1995
+      select movies except with ids 1, 5, 8
+      select the movies which contains WALL in titl string
+
+  Sorting:
+    order by:
+      select * from movies order by Title asc/desc;
+    limit:
+      order and limit the enteries
+    offset:
+      where to start the limit count
+
+  distinct:
+    without duplicate
+    list all directors in alphbetical
+
+  aggregate function:
+    max, sum, min, count
+
+  alias:
+    as syntax to convert the column name
+
+  group by:
+    aggregate function by combing row with condition
+    Reference: https://sqlbolt.com/lesson/select_queries_with_aggregates
+
+CREATE:
+  insert:
+    INSERT INTO tablename
+    (column, another_column, …)
+    VALUES (value_or_expr, another_value_or_expr, …),
+          (value_or_expr_2, another_value_or_expr_2, …),
+          …;
+
+UPDATE:
+  UPDATE mytable
+  SET column = value_or_expr, 
+      other_column = another_value_or_expr, 
+      …
+  WHERE condition;
+
+  change director for a movie
+
+  update movies set Director='John Lasseter' where Title="A Bug's Life";
+
+Relation between Multiple Tables
+  Students:
+    student_name
+    student_id
+    class_teacher
+  
+  Marks:
+    subject_id
+    subject_name
+    student_id
+    subject_marks
+
+  Teachers:
+    teacher_id
+    teacher_name
+
+DELETE:
+  DELETE FROM mytable
+  WHERE condition;
+
+Task Design:
+  Degin a DB for IMDB
+
+Desing the DB Tables and Realtionships like belwo,
+
+Movies (
+  id INT,
+  title TEXT,
+  ...
+);
+Genre (
+  id INT,
+  movie_id INT,
+  ...
+);
+
+Movie --> Many Genres
+
+Storing image or video:
+  blob --> 
+    https://stackoverflow.com/questions/6472233/can-i-store-images-in-mysql
+  BLOB(size) / TEXT (CDN URL)- images/vidoes
+
+
+
+      
+
+      
+
+
