@@ -13,10 +13,10 @@ Database:
         1. Users ---> id, Profile Picture, Name, DOB, BIO
         2. Friends ---> User Id, email, friend_since, frind_id
         3. Posts ---> post_id, vidoe/image, likes (number), comments( this is also group )
-        4. Comments ---> user_id, datetime, string
+        4. Comments ---> user_id, datetime, string, post_id
         5. Ads --> name, image, link, genre of the ads
 
-  Relationship between tables/objects,
+  Entity Relationship between tables/objects,
     one-to-many (user ---> friends)
     many-to-one (friends ---> user)
 
@@ -64,9 +64,9 @@ Database:
         cust_phone
       Bookings: (Tickets)
         pnr
-        customer_id
+        customer_id (foreign_key)
         seats
-        tain_number
+        tain_number (foreign_key)
         date
   
   Exercise Design a DB for Shopping Mart including,
